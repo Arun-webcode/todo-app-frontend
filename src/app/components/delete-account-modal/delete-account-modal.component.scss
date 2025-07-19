@@ -1,0 +1,10 @@
+@import '../../auth/login/login.page.scss';
+
+.input-wrapper {
+    margin-top: 2rem !important;
+
+    .custom-input {
+        --background: var(--ion-color-light);
+        --color: var(--ion-color-dark);
+    }
+}
