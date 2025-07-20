@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8000',
-  // baseUrl: 'https://todo-app-backend-ttqn.onrender.com',
+  // baseUrl: 'http://localhost:8000',
+  baseUrl: 'https://todo-app-backend-orcin.vercel.app/',
   app_name: 'todoApp',
   app_version_code: '001',
 };
