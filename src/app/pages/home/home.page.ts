@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PopoverController, ModalController } from '@ionic/angular/standalone';
+import { PopoverController, ModalController, ActionSheetController } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { Constants } from 'src/app/config/constants';
@@ -68,7 +68,8 @@ export class HomePage implements OnInit, OnDestroy {
     private authService: AuthService,
     private modalCtrl: ModalController,
     private taskService: TaskService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private actionSheetCtrl: ActionSheetController // <-- Add this
   ) {
     // Initialize observables
     this.pendingTasks$ = this.taskService.pendingTasks$;
@@ -106,10 +107,21 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async openAddTaskModal(task?: Task) {
+    console.log('task', task);
+
+    if (!task) {
+      task = {
+        title: '',
+        description: '',
+        priority: 'low',
+        status: 'pending'
+      };
+    }
+
     const modal = await this.modalCtrl.create({
       component: AddEditTaskPage,
       componentProps: {
-        task: task || null
+        task: task
       },
       breakpoints: [0, 0.9],
       initialBreakpoint: 0.9,
@@ -132,23 +144,42 @@ export class HomePage implements OnInit, OnDestroy {
     this.openAddTaskModal(task);
   }
 
-  deleteTask(taskId: string) {
-    if (confirm('Are you sure you want to delete this task?')) {
-      const sub = this.taskService.deleteTask(taskId).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.commonService.presentToast(res.message, 'success');
-          } else {
-            this.commonService.presentToast(res.message || 'Failed to delete task', 'danger');
+  async deleteTask(taskId: any) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Delete Task',
+      subHeader: 'Are you sure you want to delete this task?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: 'trash',
+          cssClass: 'action-sheet-header-color', // Custom class for color
+          handler: () => {
+            const sub = this.taskService.deleteTask(taskId).subscribe({
+              next: (res) => {
+                if (res.success) {
+                  this.commonService.presentToast(res.message, 'success');
+                } else {
+                  this.commonService.presentToast(res.message || 'Failed to delete task', 'danger');
+                }
+              },
+              error: (err) => {
+                console.error(err);
+                this.commonService.presentToast('Failed to delete task: ' + (err.error?.message || err.message), 'danger');
+              }
+            });
+            this.subscriptions.push(sub);
           }
         },
-        error: (err) => {
-          console.error(err);
-          this.commonService.presentToast('Failed to delete task: ' + (err.error?.message || err.message), 'danger');
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: 'close',
+          cssClass: 'action-sheet-header-color' // Custom class for color
         }
-      });
-      this.subscriptions.push(sub);
-    }
+      ]
+    });
+    await actionSheet.present();
   }
 
   toggleTaskStatus(task: Task) {
@@ -254,13 +285,17 @@ export class HomePage implements OnInit, OnDestroy {
     if (data?.password) {
       try {
         const res = await this.authService.deleteAccount(data.password);
-        console.log(res);
+        if (res.success) {
+          this.commonService.presentToast(res.message, 'success');
+        } else {
+          this.commonService.presentToast(res.message, 'danger');
+          return;
+        }
         await this.storageService.clearAll();
         this.router.navigate(['login']);
       } catch (error: any) {
         console.error('Delete account failed', error);
         this.commonService.presentToast('Error: ' + error.error?.message || 'Failed to delete account.', 'danger');
-        console.log(error.error?.message);
       }
     }
   }

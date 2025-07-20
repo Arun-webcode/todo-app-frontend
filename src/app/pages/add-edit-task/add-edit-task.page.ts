@@ -16,7 +16,7 @@ export class AddEditTaskPage implements OnInit {
     title: '',
     description: '',
     status: 'pending',
-    priority: 'medium'
+    priority: 'low'
   };
   isEditMode = false;
   originalTask: Task | null = null;
@@ -28,9 +28,8 @@ export class AddEditTaskPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const routedTaskToEdit = await this.navParams.get('task');
-    const taskToEdit = routedTaskToEdit ? routedTaskToEdit : "";
-    if (taskToEdit) {
+    const taskToEdit = await this.navParams.get('task');
+    if (taskToEdit._id) {
       this.originalTask = taskToEdit;
       this.task = {
         title: taskToEdit.title,
@@ -48,6 +47,10 @@ export class AddEditTaskPage implements OnInit {
   async saveTask() {
     if (!this.task.title.trim()) {
       return;
+    }
+
+    if (!this.task.description || !this.task.description.trim()) {
+      this.task.description = 'No description';
     }
 
     try {

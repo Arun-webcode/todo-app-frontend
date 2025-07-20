@@ -31,7 +31,7 @@
 
   <!-- Task Sections -->
   <div class="tasks-container" *ngIf="!(loading$ | async)">
-    
+
     <!-- Pending Tasks -->
     <div class="task-section pending-section">
       <div class="section-header">
@@ -41,44 +41,43 @@
         </h3>
         <ion-badge color="warning" class="task-count">{{ (pendingTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
-      
+
       <div class="tasks-list" *ngIf="(pendingTasks$ | async)?.length; else noPendingTasks">
-        <ion-card 
-          *ngFor="let task of (pendingTasks$ | async); trackBy: trackByTaskId" 
-          class="task-card pending-card"
-          (click)="editTask(task)">
-          
+        <ion-card *ngFor="let task of (pendingTasks$ | async); trackBy: trackByTaskId" class="task-card pending-card"
+          (click)="editTask(task)" style="position: relative;">
           <ion-card-content class="task-content">
             <div class="task-header">
               <h4 class="task-title">{{ task.title }}</h4>
               <div class="task-actions">
-                <ion-badge 
-                  [color]="getPriorityColor(task.priority)" 
-                  class="priority-badge">
+                <ion-badge [color]="getPriorityColor(task.priority)" class="priority-badge">
                   {{ task.priority }}
                 </ion-badge>
-                <ion-checkbox 
-                  [checked]="false"
-                  (ionChange)="toggleTaskStatus(task)"
-                  class="task-checkbox">
+                <ion-checkbox [checked]="false" (ionChange)="toggleTaskStatus(task)" class="task-checkbox">
                 </ion-checkbox>
               </div>
             </div>
-            
+
             <p class="task-description" *ngIf="task.description">
               {{ task.description }}
             </p>
-            
+
             <div class="task-meta">
               <span class="task-date">
                 <ion-icon name="calendar-outline"></ion-icon>
                 {{ task.createdAt | date:'short' }}
               </span>
             </div>
+
+            <!-- Delete button -->
+            <ion-button fill="clear" color="danger" size="small" class="delete-btn"
+              style="position: absolute; bottom: 8px; right: 8px; z-index: 10;"
+              (click)="deleteTask(task._id); $event.stopPropagation()">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
           </ion-card-content>
         </ion-card>
       </div>
-      
+
       <ng-template #noPendingTasks>
         <div class="empty-state">
           <ion-icon name="checkmark-circle-outline" class="empty-icon"></ion-icon>
@@ -96,47 +95,46 @@
         </h3>
         <ion-badge color="primary" class="task-count">{{ (inProgressTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
-      
+
       <div class="tasks-list" *ngIf="(inProgressTasks$ | async)?.length; else noProgressTasks">
-        <ion-card 
-          *ngFor="let task of (inProgressTasks$ | async); trackBy: trackByTaskId" 
-          class="task-card progress-card"
-          (click)="editTask(task)">
-          
+        <ion-card *ngFor="let task of (inProgressTasks$ | async); trackBy: trackByTaskId"
+          class="task-card progress-card" (click)="editTask(task)" style="position: relative;">
           <ion-card-content class="task-content">
             <div class="task-header">
               <h4 class="task-title">{{ task.title }}</h4>
               <div class="task-actions">
-                <ion-badge 
-                  [color]="getPriorityColor(task.priority)" 
-                  class="priority-badge">
+                <ion-badge [color]="getPriorityColor(task.priority)" class="priority-badge">
                   {{ task.priority }}
                 </ion-badge>
                 <div class="status-indicator">
                   <ion-icon name="checkmark-outline" class="single-check"></ion-icon>
                 </div>
-                <ion-checkbox 
-                  [checked]="false"
-                  (ionChange)="toggleTaskStatus(task)"
-                  class="task-checkbox">
+                <ion-checkbox [checked]="false" (ionChange)="toggleTaskStatus(task)" class="task-checkbox">
                 </ion-checkbox>
               </div>
             </div>
-            
+
             <p class="task-description" *ngIf="task.description">
               {{ task.description }}
             </p>
-            
+
             <div class="task-meta">
               <span class="task-date">
                 <ion-icon name="calendar-outline"></ion-icon>
                 {{ task.createdAt | date:'short' }}
               </span>
             </div>
+
+            <!-- Delete button -->
+            <ion-button fill="clear" color="danger" size="small" class="delete-btn"
+              style="position: absolute; bottom: 8px; right: 8px; z-index: 10;"
+              (click)="deleteTask(task._id); $event.stopPropagation()">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
           </ion-card-content>
         </ion-card>
       </div>
-      
+
       <ng-template #noProgressTasks>
         <div class="empty-state">
           <ion-icon name="play-circle-outline" class="empty-icon"></ion-icon>
@@ -154,20 +152,15 @@
         </h3>
         <ion-badge color="success" class="task-count">{{ (completedTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
-      
+
       <div class="tasks-list" *ngIf="(completedTasks$ | async)?.length; else noCompletedTasks">
-        <ion-card 
-          *ngFor="let task of (completedTasks$ | async); trackBy: trackByTaskId" 
-          class="task-card completed-card"
-          (click)="editTask(task)">
-          
+        <ion-card *ngFor="let task of (completedTasks$ | async); trackBy: trackByTaskId"
+          class="task-card completed-card" (click)="editTask(task)" style="position: relative;">
           <ion-card-content class="task-content">
             <div class="task-header">
               <h4 class="task-title completed-title">{{ task.title }}</h4>
               <div class="task-actions">
-                <ion-badge 
-                  [color]="getPriorityColor(task.priority)" 
-                  class="priority-badge">
+                <ion-badge [color]="getPriorityColor(task.priority)" class="priority-badge">
                   {{ task.priority }}
                 </ion-badge>
                 <div class="status-indicator">
@@ -176,21 +169,28 @@
                 </div>
               </div>
             </div>
-            
+
             <p class="task-description completed-description" *ngIf="task.description">
               {{ task.description }}
             </p>
-            
+
             <div class="task-meta">
               <span class="task-date">
                 <ion-icon name="calendar-outline"></ion-icon>
                 {{ task.createdAt | date:'short' }}
               </span>
             </div>
+
+            <!-- Delete button -->
+            <ion-button fill="clear" color="danger" size="small" class="delete-btn"
+              style="position: absolute; bottom: 8px; right: 8px; z-index: 10;"
+              (click)="deleteTask(task._id); $event.stopPropagation()">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
           </ion-card-content>
         </ion-card>
       </div>
-      
+
       <ng-template #noCompletedTasks>
         <div class="empty-state">
           <ion-icon name="trophy-outline" class="empty-icon"></ion-icon>
@@ -200,4 +200,3 @@
     </div>
   </div>
 </ion-content>
-

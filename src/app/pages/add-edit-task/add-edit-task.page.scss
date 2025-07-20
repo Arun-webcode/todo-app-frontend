@@ -1,7 +1,7 @@
 // Form Styling
 .form-group {
   margin-bottom: 20px;
-  
+
   .form-item {
     --background: var(--app-card-background);
     --border-radius: 16px;
@@ -13,24 +13,24 @@
     border-radius: 16px;
     margin-bottom: 8px;
     transition: all 0.3s ease;
-    
+
     &.item-has-focus {
       --border-color: var(--ion-color-primary);
       border-color: var(--ion-color-primary);
       box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
     }
-    
+
     .field-label {
       font-weight: 600;
       color: var(--ion-color-primary);
       margin-bottom: 8px;
     }
-    
+
     .task-input {
       --color: var(--app-text-color);
       --placeholder-color: var(--ion-color-medium);
       font-size: 1rem;
-      
+
       &.has-focus {
         --color: var(--ion-color-primary);
       }
@@ -43,7 +43,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
-  
+
   .priority-badge {
     font-size: 0.9rem;
     font-weight: 600;
@@ -56,7 +56,7 @@
 // Action Buttons
 .action-buttons {
   margin-top: 32px;
-  
+
   .save-button {
     --background: linear-gradient(135deg, #8A2BE2, #4B0082);
     --color: white;
@@ -64,24 +64,25 @@
     --box-shadow: 0 4px 16px rgba(138, 43, 226, 0.3);
     font-weight: 600;
     margin-bottom: 12px;
-    
+
     &:hover:not([disabled]) {
       --box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
       transform: translateY(-2px);
     }
-    
+
     &[disabled] {
       --background: var(--ion-color-medium);
       --box-shadow: none;
     }
   }
-  
+
   .cancel-button {
     --color: var(--ion-color-medium);
     --border-color: var(--ion-color-medium);
     --border-radius: 16px;
     font-weight: 600;
-    
+    margin-bottom: 5rem;
+
     &:hover {
       --color: var(--ion-color-primary);
       --border-color: var(--ion-color-primary);
@@ -96,16 +97,16 @@
     .form-item {
       --background: var(--app-card-background);
       border-color: rgba(191, 128, 255, 0.2);
-      
+
       &.item-has-focus {
         border-color: #BF80FF;
         box-shadow: 0 0 0 3px rgba(191, 128, 255, 0.1);
       }
-      
+
       .field-label {
         color: #BF80FF;
       }
-      
+
       .task-input {
         &.has-focus {
           --color: #BF80FF;
@@ -113,17 +114,17 @@
       }
     }
   }
-  
+
   .action-buttons {
     .save-button {
       --background: linear-gradient(135deg, #4B0082, #000000);
       --box-shadow: 0 4px 16px rgba(75, 0, 130, 0.3);
-      
+
       &:hover:not([disabled]) {
         --box-shadow: 0 6px 20px rgba(75, 0, 130, 0.4);
       }
     }
-    
+
     .cancel-button {
       &:hover {
         --color: #BF80FF;
@@ -139,6 +140,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -149,7 +151,7 @@
 @media (max-width: 768px) {
   .form-group {
     margin-bottom: 16px;
-    
+
     .form-item {
       --border-radius: 12px;
       --padding-start: 12px;
@@ -157,29 +159,29 @@
       --padding-top: 10px;
       --padding-bottom: 10px;
       border-radius: 12px;
-      
+
       .field-label {
         font-size: 0.9rem;
       }
-      
+
       .task-input {
         font-size: 0.9rem;
       }
     }
   }
-  
+
   .priority-preview {
     margin-bottom: 20px;
-    
+
     .priority-badge {
       font-size: 0.8rem;
       padding: 6px 12px;
     }
   }
-  
+
   .action-buttons {
     margin-top: 24px;
-    
+
     .save-button,
     .cancel-button {
       --border-radius: 12px;
@@ -187,4 +189,3 @@
     }
   }
 }
-
