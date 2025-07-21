@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:4200',
+  baseUrl: 'https://todo-app-backend-orcin.vercel.app',
   app_name: 'todoApp',
   app_version_code: '001',
 };
