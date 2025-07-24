@@ -8,8 +8,8 @@ A beautifully designed full-stack **Todo App** with rich UI/UX and essential pro
 ---
 
 ## 📸 Preview
+<img width="339" height="751" alt="image" src="https://github.com/user-attachments/assets/903ee6cd-d8aa-4612-ae58-0e438ce290cf" />
 
-![App Screenshot](https://user-images.githubusercontent.com/your-screenshot-url.jpg) <!-- Optional: Add a screenshot -->
 
 ---
 
