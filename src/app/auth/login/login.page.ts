@@ -58,8 +58,8 @@ export class LoginPage implements OnInit {
       await this.storageService.setItem(Constants.AUTH_TOKEN, res.token);
       this.router.navigate(['home']);
     } catch (error: any) {
-      console.error(error.error.message);
-      this.commonService.presentToast(error.error.message, 'danger');
+      console.error(error.message || error);
+      this.commonService.presentToast(error.message || 'Cors or server related issue...', 'danger');
     }
   }
 

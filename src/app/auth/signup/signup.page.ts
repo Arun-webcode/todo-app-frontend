@@ -4,14 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
   IonCard, IonCardHeader, IonCardSubtitle, IonCardContent,
-  IonCardTitle, IonButton, IonInput, IonLabel,
-  IonContent,
+  IonCardTitle, IonButton, IonInput, IonContent,
   IonTitle, IonHeader,
   IonToolbar,
   IonIcon,
-  IonItem,
-  IonButtons,
-  ModalController
+  IonButtons
 } from '@ionic/angular/standalone';
 import { CommonService } from 'src/app/services/common.service';
 import { Router } from '@angular/router';
@@ -22,7 +19,7 @@ import { ThemeToggleComponent } from 'src/app/components/theme-toggle/theme-togg
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
   standalone: true,
-  imports: [IonButtons, IonItem, IonIcon, IonHeader, IonLabel,
+  imports: [IonButtons, IonIcon, IonHeader,
     IonInput, IonButton, IonCardTitle, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonContent, IonTitle, IonToolbar, FormsModule, CommonModule, ThemeToggleComponent
   ]
 })
