@@ -45,46 +45,15 @@ ion-toolbar {
   }
 }
 
-// Add Task FAB - Enhanced with more specific selectors and !important for production
-ion-fab {
-  position: fixed !important;
-  bottom: 16px !important;
-  right: 16px !important;
-  z-index: 999 !important;
-
-  ion-fab-button.add-task-fab {
-    --background: linear-gradient(135deg, #8A2BE2, #4B0082) !important;
-    --color: white !important;
-    --box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4) !important;
-    width: 56px !important;
-    height: 56px !important;
-    position: relative !important;
-
-    &:hover {
-      --box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6) !important;
-      transform: scale(1.05) !important;
-    }
-
-    ion-icon {
-      font-size: 24px !important;
-      color: white !important;
-    }
-  }
-}
-
-// Fallback FAB styling for production builds
+// Add Task FAB
 .add-task-fab {
-  --background: linear-gradient(135deg, #8A2BE2, #4B0082) !important;
-  --color: white !important;
-  --box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4) !important;
-  background: linear-gradient(135deg, #8A2BE2, #4B0082) !important;
-  color: white !important;
-  box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4) !important;
+  --background: linear-gradient(135deg, #8A2BE2, #4B0082);
+  --color: white;
+  --box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4);
 
   &:hover {
-    --box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6) !important;
-    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6) !important;
-    transform: scale(1.05) !important;
+    --box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+    transform: scale(1.05);
   }
 }
 
@@ -202,13 +171,13 @@ ion-fab {
           gap: 2px;
 
           .single-check {
-            color: var(--ion-color-primary) !important;
-            font-size: 1.2rem !important;
+            color: var(--ion-color-primary);
+            font-size: 1.2rem;
           }
 
           .double-check {
-            color: #4CAF50 !important;
-            font-size: 1rem !important;
+            color: #4CAF50;
+            font-size: 1rem;
 
             &.first {
               margin-right: -8px;
@@ -253,19 +222,6 @@ ion-fab {
         }
       }
     }
-  }
-}
-
-// Delete button styling fix
-.delete-btn {
-  position: absolute !important;
-  bottom: 8px !important;
-  right: 8px !important;
-  z-index: 10 !important;
-
-  ion-icon {
-    color: var(--ion-color-danger) !important;
-    font-size: 18px !important;
   }
 }
 
@@ -347,24 +303,12 @@ ion-fab {
     }
   }
 
-  ion-fab ion-fab-button.add-task-fab {
-    --background: linear-gradient(135deg, #4B0082, #000000) !important;
-    --box-shadow: 0 4px 16px rgba(75, 0, 130, 0.4) !important;
-
-    &:hover {
-      --box-shadow: 0 6px 20px rgba(75, 0, 130, 0.6) !important;
-    }
-  }
-
   .add-task-fab {
-    --background: linear-gradient(135deg, #4B0082, #000000) !important;
-    --box-shadow: 0 4px 16px rgba(75, 0, 130, 0.4) !important;
-    background: linear-gradient(135deg, #4B0082, #000000) !important;
-    box-shadow: 0 4px 16px rgba(75, 0, 130, 0.4) !important;
+    --background: linear-gradient(135deg, #4B0082, #000000);
+    --box-shadow: 0 4px 16px rgba(75, 0, 130, 0.4);
 
     &:hover {
-      --box-shadow: 0 6px 20px rgba(75, 0, 130, 0.6) !important;
-      box-shadow: 0 6px 20px rgba(75, 0, 130, 0.6) !important;
+      --box-shadow: 0 6px 20px rgba(75, 0, 130, 0.6);
     }
   }
 
@@ -472,17 +416,6 @@ ion-fab {
 
     .empty-text {
       font-size: 0.9rem;
-    }
-  }
-
-  // Mobile FAB positioning
-  ion-fab {
-    bottom: 20px !important;
-    right: 20px !important;
-
-    ion-fab-button.add-task-fab {
-      width: 56px !important;
-      height: 56px !important;
     }
   }
 }

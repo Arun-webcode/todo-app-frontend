@@ -35,73 +35,6 @@
         --color: var(--ion-color-primary);
       }
     }
-
-    // Enhanced ion-select styling for production compatibility
-    ion-select {
-      --color: var(--app-text-color) !important;
-      --placeholder-color: var(--ion-color-medium) !important;
-      font-size: 1rem !important;
-      width: 100% !important;
-      min-height: 44px !important;
-
-      &.has-focus {
-        --color: var(--ion-color-primary) !important;
-      }
-
-      // Ensure the select interface works in production
-      &.select-expanded {
-        --color: var(--ion-color-primary) !important;
-      }
-    }
-  }
-}
-
-// Enhanced select styling for production builds
-ion-select {
-  --background: transparent !important;
-  --color: var(--app-text-color) !important;
-  --placeholder-color: var(--ion-color-medium) !important;
-  --padding-start: 0 !important;
-  --padding-end: 0 !important;
-  width: 100% !important;
-
-  // Ensure dropdown arrow is visible
-  &::part(icon) {
-    color: var(--ion-color-primary) !important;
-    opacity: 1 !important;
-  }
-
-  // Fix for production builds where select options might not show
-  &.select-interface-popover {
-    --background: var(--app-card-background) !important;
-  }
-}
-
-// Popover styling for select options in production
-ion-popover.select-popover {
-  --background: var(--app-card-background) !important;
-  --color: var(--app-text-color) !important;
-  --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-  --border-radius: 12px !important;
-
-  ion-radio-group {
-    ion-item {
-      --background: transparent !important;
-      --color: var(--app-text-color) !important;
-
-      &:hover {
-        --background: rgba(138, 43, 226, 0.1) !important;
-      }
-
-      ion-radio {
-        --color: var(--ion-color-primary) !important;
-        --color-checked: var(--ion-color-primary) !important;
-      }
-
-      ion-label {
-        color: var(--app-text-color) !important;
-      }
-    }
   }
 }
 
@@ -179,45 +112,6 @@ ion-popover.select-popover {
           --color: #BF80FF;
         }
       }
-
-      ion-select {
-        --color: var(--app-text-color-dark) !important;
-
-        &.has-focus {
-          --color: #BF80FF !important;
-        }
-
-        &::part(icon) {
-          color: #BF80FF !important;
-        }
-      }
-    }
-  }
-
-  // Dark mode popover styling
-  ion-popover.select-popover {
-    --background: var(--app-card-background-dark) !important;
-    --color: var(--app-text-color-dark) !important;
-    --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
-
-    ion-radio-group {
-      ion-item {
-        --background: transparent !important;
-        --color: var(--app-text-color-dark) !important;
-
-        &:hover {
-          --background: rgba(191, 128, 255, 0.1) !important;
-        }
-
-        ion-radio {
-          --color: #BF80FF !important;
-          --color-checked: #BF80FF !important;
-        }
-
-        ion-label {
-          color: var(--app-text-color-dark) !important;
-        }
-      }
     }
   }
 
@@ -273,11 +167,6 @@ ion-popover.select-popover {
       .task-input {
         font-size: 0.9rem;
       }
-
-      ion-select {
-        font-size: 0.9rem !important;
-        min-height: 40px !important;
-      }
     }
   }
 
@@ -299,28 +188,4 @@ ion-popover.select-popover {
       font-size: 0.9rem;
     }
   }
-}
-
-// Additional fixes for production builds
-// Ensure select interface is properly styled
-.select-interface-popover {
-  ion-item {
-    --background: var(--app-card-background) !important;
-    --color: var(--app-text-color) !important;
-
-    ion-radio {
-      --color: var(--ion-color-primary) !important;
-      --color-checked: var(--ion-color-primary) !important;
-    }
-  }
-}
-
-// Fix for select placeholder in production
-ion-select.select-placeholder {
-  --color: var(--ion-color-medium) !important;
-}
-
-// Ensure select text is visible in production
-ion-select.has-value {
-  --color: var(--app-text-color) !important;
 }

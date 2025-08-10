@@ -34,13 +34,7 @@
     <div class="form-group">
       <ion-item lines="none" class="form-item">
         <ion-label position="stacked" class="field-label">Priority</ion-label>
-        <ion-select [(ngModel)]="task.priority" name="priority" placeholder="Select priority" class="task-input"
-          interface="popover" [interfaceOptions]="{
-            header: 'Select Priority',
-            subHeader: 'Choose task priority level',
-            showBackdrop: true,
-            backdropDismiss: true
-          }">
+        <ion-select [(ngModel)]="task.priority" name="priority" placeholder="Select priority" class="task-input">
           <ion-select-option value="low">Low</ion-select-option>
           <ion-select-option value="medium">Medium</ion-select-option>
           <ion-select-option value="high">High</ion-select-option>
