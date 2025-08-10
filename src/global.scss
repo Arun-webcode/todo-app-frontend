@@ -52,10 +52,6 @@
   --app-border-color: #e0e0e0;
   --app-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --app-card-background: #ffffff;
-  --app-card-background-light: #ffffff;
-  --app-card-background-dark: #1e1e1e;
-  --app-text-color-light: #000000;
-  --app-text-color-dark: #ffffff;
   --app-header-background: linear-gradient(135deg, #4B0082 0%, #8A2BE2 100%);
   --app-header-text-color: #ffffff;
 
@@ -319,146 +315,16 @@ body.dark ion-modal {
 ion-popover {
   --border-radius: 16px;
   --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  --background: var(--app-card-background) !important;
-  --color: var(--app-text-color) !important;
-
-  ion-content {
-    --background: var(--app-card-background) !important;
-    --color: var(--app-text-color) !important;
-  }
-
-  ion-radio-group {
-    ion-item {
-      --background: transparent !important;
-      --color: var(--app-text-color) !important;
-
-      &:hover {
-        --background: rgba(138, 43, 226, 0.1) !important;
-      }
-
-      ion-radio {
-        --color: var(--ion-color-primary) !important;
-        --color-checked: var(--ion-color-primary) !important;
-      }
-
-      ion-label {
-        color: var(--app-text-color) !important;
-      }
-    }
-  }
 }
 
 body.dark ion-popover {
   --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  --background: var(--app-card-background-dark) !important;
-  --color: var(--app-text-color-dark) !important;
-
-  ion-content {
-    --background: var(--app-card-background-dark) !important;
-    --color: var(--app-text-color-dark) !important;
-  }
-
-  ion-radio-group {
-    ion-item {
-      --background: transparent !important;
-      --color: var(--app-text-color-dark) !important;
-
-      &:hover {
-        --background: rgba(191, 128, 255, 0.1) !important;
-      }
-
-      ion-radio {
-        --color: #BF80FF !important;
-        --color-checked: #BF80FF !important;
-      }
-
-      ion-label {
-        color: var(--app-text-color-dark) !important;
-      }
-    }
-  }
 }
 
 /* Enhanced Toast Styling */
 ion-toast {
   --border-radius: 12px;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* FAB Button Global Fixes */
-ion-fab {
-  position: fixed !important;
-  z-index: 999 !important;
-
-  ion-fab-button {
-    --box-shadow: 0 4px 16px rgba(138, 43, 226, 0.4) !important;
-
-    &:hover {
-      transform: scale(1.05) !important;
-    }
-
-    ion-icon {
-      font-size: 24px !important;
-      color: white !important;
-    }
-  }
-}
-
-/* Icon fixes for production */
-ion-icon {
-  font-size: inherit !important;
-  color: inherit !important;
-
-  &[name] {
-    font-family: "Ionicons" !important;
-  }
-}
-
-/* Ensure icons are properly displayed in production */
-.status-indicator {
-  ion-icon {
-    display: inline-block !important;
-    width: auto !important;
-    height: auto !important;
-  }
-}
-
-/* Select interface fixes for production */
-.select-interface-popover {
-  --background: var(--app-card-background) !important;
-  --color: var(--app-text-color) !important;
-
-  ion-item {
-    --background: transparent !important;
-    --color: var(--app-text-color) !important;
-
-    ion-radio {
-      --color: var(--ion-color-primary) !important;
-      --color-checked: var(--ion-color-primary) !important;
-    }
-
-    ion-label {
-      color: var(--app-text-color) !important;
-    }
-  }
-}
-
-body.dark .select-interface-popover {
-  --background: var(--app-card-background-dark) !important;
-  --color: var(--app-text-color-dark) !important;
-
-  ion-item {
-    --color: var(--app-text-color-dark) !important;
-
-    ion-radio {
-      --color: #BF80FF !important;
-      --color-checked: #BF80FF !important;
-    }
-
-    ion-label {
-      color: var(--app-text-color-dark) !important;
-    }
-  }
 }
 
 /* Utility Classes */
@@ -520,16 +386,6 @@ body.dark .select-interface-popover {
   ion-textarea,
   ion-select {
     --border-radius: 10px;
-  }
-
-  ion-fab {
-    bottom: 20px !important;
-    right: 20px !important;
-
-    ion-fab-button {
-      width: 56px !important;
-      height: 56px !important;
-    }
   }
 }
 
