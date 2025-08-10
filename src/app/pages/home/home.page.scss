@@ -95,6 +95,7 @@ ion-toolbar {
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 5px;
     }
   }
 }
@@ -190,10 +191,10 @@ ion-toolbar {
         }
 
         .task-checkbox {
-          --color: var(--ion-color-primary);
-          --color-checked: var(--ion-color-primary);
-          --border-color: var(--ion-color-primary);
-          --border-color-checked: var(--ion-color-primary);
+          --color: var(--ion-color-primary) !important;
+          --color-checked: var(--ion-color-primary) !important;
+          --border-color: var(--ion-color-primary) !important;
+          --border-color-checked: var(--ion-color-primary) !important;
         }
       }
     }
@@ -422,12 +423,20 @@ ion-toolbar {
 
 .warning {
   background-color: var(--ion-color-warning) !important;
+  --color: var(--ion-color-primary-contrast) !important;
 }
 
 .primary {
   background-color: var(--ion-color-primary) !important;
+  --color: var(--ion-color-primary-contrast) !important;
 }
 
 .success {
   background-color: var(--ion-color-success) !important;
+  --color: var(--ion-color-primary-contrast) !important;
+}
+
+.danger {
+  background-color: var(--ion-color-danger) !important;
+  --color: var(--ion-color-primary-contrast) !important;
 }

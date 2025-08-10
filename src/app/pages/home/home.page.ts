@@ -228,7 +228,7 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  getPriorityColor(priority: string): string {
+  getPriorityClass(priority: string): string {
     return this.taskService.getPriorityColor(priority);
   }
 
