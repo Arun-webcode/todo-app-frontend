@@ -39,7 +39,7 @@
           <ion-icon name="time-outline" class="section-icon"></ion-icon>
           Pending Tasks
         </h3>
-        <ion-badge color="warning" class="task-count">{{ (pendingTasks$ | async)?.length || 0 }}</ion-badge>
+        <ion-badge class="task-count warning">{{ (pendingTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
 
       <div class="tasks-list" *ngIf="(pendingTasks$ | async)?.length; else noPendingTasks">
@@ -93,7 +93,7 @@
           <ion-icon name="play-circle-outline" class="section-icon"></ion-icon>
           In Progress
         </h3>
-        <ion-badge color="primary" class="task-count">{{ (inProgressTasks$ | async)?.length || 0 }}</ion-badge>
+        <ion-badge class="task-count primary">{{ (inProgressTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
 
       <div class="tasks-list" *ngIf="(inProgressTasks$ | async)?.length; else noProgressTasks">
@@ -150,7 +150,7 @@
           <ion-icon name="checkmark-done-outline" class="section-icon"></ion-icon>
           Completed
         </h3>
-        <ion-badge color="success" class="task-count">{{ (completedTasks$ | async)?.length || 0 }}</ion-badge>
+        <ion-badge class="task-count success">{{ (completedTasks$ | async)?.length || 0 }}</ion-badge>
       </div>
 
       <div class="tasks-list" *ngIf="(completedTasks$ | async)?.length; else noCompletedTasks">
