@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import api from '../config/api.service' // 👈 import your axios instance
 import { ApiUrls, Constants } from '../config/constants';
-import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  private baseUrl = environment.baseUrl;
-
   constructor(
-    private http: HttpClient,
     private storageService: StorageService
   ) { }
 
@@ -21,56 +16,53 @@ export class AuthService {
   }
 
   async sendOtp(email: string): Promise<any> {
-    return this.http.post(`${this.baseUrl}${ApiUrls.auth.otpGen}`, { email }).toPromise();
+    const res = await api.post(ApiUrls.auth.otpGen, { email });
+    return res.data;
   }
 
   async registerAccount(email: string, password: string, name: string, otp: string): Promise<any> {
     const body = { email, password, name, otp };
-    return this.http.post(`${this.baseUrl}${ApiUrls.auth.register}`, body).toPromise();
+    const res = await api.post(ApiUrls.auth.register, body);
+    return res.data;
   }
 
   async sendResetPasswordOtp(email: string): Promise<any> {
-    return this.http.post(`${this.baseUrl}${ApiUrls.auth.resetOtp}`, { email }).toPromise();
+    const res = await api.post(ApiUrls.auth.resetOtp, { email });
+    return res.data;
   }
 
   async resetPassword(email: string, newPassword: string, otp: string): Promise<any> {
     const body = { email, otp, newPassword };
-    return this.http.put(`${this.baseUrl}${ApiUrls.auth.resetPass}`, body).toPromise();
+    const res = await api.put(ApiUrls.auth.resetPass, body);
+    return res.data;
   }
 
   async login(email: string, password: string): Promise<any> {
     const body = { email, password };
-    return this.http.post(`${this.baseUrl}${ApiUrls.auth.login}`, body, {
-      withCredentials: true
-    }).toPromise();
-
+    const res = await api.post(ApiUrls.auth.login, body);
+    return res.data;
   }
 
   async logout(): Promise<any> {
-    return this.http.get(`${this.baseUrl}${ApiUrls.auth.logout}`, {
-      withCredentials: true
-    }).toPromise();
+    const res = await api.get(ApiUrls.auth.logout);
+    return res.data;
   }
 
   async deleteAccount(password: string): Promise<any> {
-    const body = { password };
-
-    return this.http.request('delete', `${this.baseUrl}${ApiUrls.auth.deleteAcc}`, {
-      body,
-      withCredentials: true
-    }).toPromise();
+    const res = await api.delete(ApiUrls.auth.deleteAcc, {
+      data: { password }
+    });
+    return res.data;
   }
 
   async updateProfile(name: string, bio: string): Promise<any> {
     const body = { name, bio };
-    return this.http.put(`${this.baseUrl}${ApiUrls.profileUpdate}`, body, {
-      withCredentials: true
-    }).toPromise();
+    const res = await api.put(ApiUrls.profileUpdate, body);
+    return res.data;
   }
 
   async getUserDetails(): Promise<any> {
-    return this.http.get(`${this.baseUrl}${ApiUrls.auth.getUserDetails}`, {
-      withCredentials: true
-    }).toPromise();
+    const res = await api.get(ApiUrls.auth.getUserDetails);
+    return res.data;
   }
 }

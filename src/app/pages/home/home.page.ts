@@ -94,8 +94,10 @@ export class HomePage implements OnInit, OnDestroy {
   loadTasks() {
     const sub = this.taskService.getAllTasks().subscribe({
       next: (res) => {
-        if (!res.success) {
-          this.commonService.presentToast(res.message || 'Failed to load tasks', 'danger');
+        if (!res.data.success) {
+          this.commonService.presentToast(res.data.message || 'Failed to load tasks', 'danger');
+        } else {
+          this.commonService.presentToast(res.data.message || 'Tasks loaded successfully', 'success');
         }
       },
       error: (err) => {
@@ -107,8 +109,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async openAddTaskModal(task?: Task) {
-    console.log('task', task);
-
     if (!task) {
       task = {
         title: '',
@@ -157,10 +157,10 @@ export class HomePage implements OnInit, OnDestroy {
           handler: () => {
             const sub = this.taskService.deleteTask(taskId).subscribe({
               next: (res) => {
-                if (res.success) {
-                  this.commonService.presentToast(res.message, 'success');
+                if (res.data.success) {
+                  this.commonService.presentToast(res.data.message, 'success');
                 } else {
-                  this.commonService.presentToast(res.message || 'Failed to delete task', 'danger');
+                  this.commonService.presentToast(res.data.message || 'Failed to delete task', 'danger');
                 }
               },
               error: (err) => {
@@ -201,10 +201,10 @@ export class HomePage implements OnInit, OnDestroy {
 
     const sub = this.taskService.updateTaskStatus(task._id!, newStatus).subscribe({
       next: (res) => {
-        if (res.success) {
+        if (res.data.success) {
           this.commonService.presentToast(`Task moved to ${newStatus.replace('-', ' ')}`, 'success');
         } else {
-          this.commonService.presentToast(res.message || 'Failed to update task status', 'danger');
+          this.commonService.presentToast(res.data.message || 'Failed to update task status', 'danger');
         }
       },
       error: (err) => {

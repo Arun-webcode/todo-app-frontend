@@ -11,7 +11,6 @@ export class Constants {
 
 }
 
-
 export const ApiUrls = {
     profileUpdate: '/api/v1/user/profile/update', //put
     auth: {

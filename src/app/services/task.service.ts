@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ApiUrls, Constants } from 'src/app/config/constants';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { StorageService } from './storage.service';
+import { BehaviorSubject, from, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { ApiUrls } from 'src/app/config/constants';
+import api from '../config/api.service';
 
 export interface Task {
   _id?: string;
@@ -20,123 +18,112 @@ export interface Task {
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = environment.baseUrl;
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
-  
+
   public tasks$ = this.tasksSubject.asObservable();
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private storageService: StorageService
-  ) { }
+  constructor() { }
 
   // Get tasks organized by status
-  get pendingTasks$(): Observable<Task[]> {
+  get pendingTasks$() {
     return this.tasks$.pipe(
       map(tasks => tasks.filter(task => task.status === 'pending'))
     );
   }
 
-  get inProgressTasks$(): Observable<Task[]> {
+  get inProgressTasks$() {
     return this.tasks$.pipe(
       map(tasks => tasks.filter(task => task.status === 'in-progress'))
     );
   }
 
-  get completedTasks$(): Observable<Task[]> {
+  get completedTasks$() {
     return this.tasks$.pipe(
       map(tasks => tasks.filter(task => task.status === 'completed'))
     );
   }
 
-  getAllTasks(): Observable<any> {
+  getAllTasks() {
     this.loadingSubject.next(true);
-    return this.http.get(`${this.baseUrl}${ApiUrls.task.getAllTasks}`, { withCredentials: true })
-      .pipe(
-        tap((response: any) => {
-          if (response.success && response.tasks) {
-            this.tasksSubject.next(response.tasks);
-          }
-          this.loadingSubject.next(false);
-        }),
-        catchError(error => {
-          this.loadingSubject.next(false);
-          return throwError(error);
-        })
-      );
+    return from(api.get(ApiUrls.task.getAllTasks)).pipe(
+      tap((response: any) => {
+        if (response.data.success && response.data.tasks) {
+          this.tasksSubject.next(response.data.tasks);
+        }
+        this.loadingSubject.next(false);
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
-  createTask(task: Omit<Task, '_id'>): Observable<any> {
+  createTask(task: Omit<Task, '_id'>) {
     this.loadingSubject.next(true);
-    const taskPayload = {
-      ...task,
-      status: 'pending' // Always start as pending
-    };
-    
-    return this.http.post(`${this.baseUrl}${ApiUrls.task.createTask}`, taskPayload, { withCredentials: true })
-      .pipe(
-        tap((response: any) => {
-          if (response.success) {
-            this.refreshTasks();
-          }
-          this.loadingSubject.next(false);
-        }),
-        catchError(error => {
-          this.loadingSubject.next(false);
-          return throwError(error);
-        })
-      );
+    const taskPayload = { ...task, status: 'pending' };
+
+    return from(api.post(ApiUrls.task.createTask, taskPayload)).pipe(
+      tap((response: any) => {
+        if (response.data.success) {
+          this.refreshTasks();
+        }
+        this.loadingSubject.next(false);
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateTask(taskId: string, task: Partial<Task>): Observable<any> {
+  updateTask(taskId: string, task: Partial<Task>) {
     this.loadingSubject.next(true);
-    return this.http.put(`${this.baseUrl}${ApiUrls.task.updateTaskByTaskid.replace(':id', taskId)}`, task, { withCredentials: true })
-      .pipe(
-        tap((response: any) => {
-          if (response.success) {
-            this.refreshTasks();
-          }
-          this.loadingSubject.next(false);
-        }),
-        catchError(error => {
-          this.loadingSubject.next(false);
-          return throwError(error);
-        })
-      );
+    return from(api.put(ApiUrls.task.updateTaskByTaskid.replace(':id', taskId), task)).pipe(
+      tap((response: any) => {
+        if (response.data.success) {
+          this.refreshTasks();
+        }
+        this.loadingSubject.next(false);
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateTaskStatus(taskId: string, status: Task['status']): Observable<any> {
+  updateTaskStatus(taskId: string, status: Task['status']) {
     return this.updateTask(taskId, { status });
   }
 
-  deleteTask(taskId: string): Observable<any> {
+  deleteTask(taskId: string) {
     this.loadingSubject.next(true);
-    return this.http.delete(`${this.baseUrl}${ApiUrls.task.deleteTaskByTaskid.replace(':id', taskId)}`, { withCredentials: true })
-      .pipe(
-        tap((response: any) => {
-          if (response.success) {
-            this.refreshTasks();
-          }
-          this.loadingSubject.next(false);
-        }),
-        catchError(error => {
-          this.loadingSubject.next(false);
-          return throwError(error);
-        })
-      );
+    return from(api.delete(ApiUrls.task.deleteTaskByTaskid.replace(':id', taskId))).pipe(
+      tap((response: any) => {
+        if (response.data.success) {
+          this.refreshTasks();
+        }
+        this.loadingSubject.next(false);
+      }),
+      catchError(error => {
+        this.loadingSubject.next(false);
+        return throwError(() => error);
+      })
+    );
   }
 
-  getTaskById(taskId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}${ApiUrls.task.getTaskByUserid.replace(':id', taskId)}`, { withCredentials: true });
+  getTaskById(taskId: string) {
+    return from(api.get(ApiUrls.task.getTaskByUserid.replace(':id', taskId)));
   }
 
   private refreshTasks(): void {
     this.getAllTasks().subscribe();
   }
 
-  // Helper method to get priority color
+  // Helper methods
   getPriorityColor(priority: string): string {
     switch (priority) {
       case 'high': return 'danger';
@@ -146,7 +133,6 @@ export class TaskService {
     }
   }
 
-  // Helper method to get status icon
   getStatusIcon(status: string): string {
     switch (status) {
       case 'pending': return 'ellipse-outline';
