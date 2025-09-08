@@ -8,7 +8,7 @@ export const loginGuard: CanActivateFn = async (route, state) => {
   if (await storageService.isLoggedIn() == null) {
     return true;
   } else {
-    router.navigate(['login']);
+    router.navigate(['home']);
     return false;
   }
 };
