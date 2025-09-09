@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.5",
-    "@ionic/angular": "^8.4.1",
+    "@ionic/angular": "^8.7.3",
     "@ionic/storage-angular": "^4.0.0",
     "axios": "^1.11.0",
     "ionicons": "^7.0.0",
