@@ -1,5 +1,5 @@
 [build]
-  publish = "www"
+  publish = "www/browser"
   command = "npm run build"
 
 [build.environment]
