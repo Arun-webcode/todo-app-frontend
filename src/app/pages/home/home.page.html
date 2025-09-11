@@ -11,12 +11,18 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <!-- Add Task Button -->
+  <ion-button (click)="openAddTaskModal()" class="add-task-fab">
+    <ion-icon name="add" size="large"></ion-icon>
+  </ion-button>
+
   <!-- Motivational Quote Section -->
   <div class="quote-container">
     <h2 class="quote-text">"{{ currentQuote }}"</h2>
   </div>
 
-    <!-- Loading Spinner -->
+  <!-- Loading Spinner -->
   <div *ngIf="loading$ | async" class="loading-container">
     <ion-spinner name="crescent"></ion-spinner>
     <p>Loading tasks...</p>
@@ -192,11 +198,4 @@
       </ng-template>
     </div>
   </div>
-
-   <!-- Add Task Button -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openAddTaskModal()" class="add-task-fab">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
